@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja Virtual</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="intro">
+
+        <!--produtos-->
+        <h2>VITRINE</h2>
+        <br><br><br>
+        <div id="produtos">
+        </div>
+        
+        <br><br><br>
+        
+        <!-- carrinho -->
+        <h2>CARRINHO</h2>
+        <div id="carrinho">
+        </div>
+        
+        <div id="botaoLimpar">
+            <button type="button" onclick="limparCarrinho()">Limpar Carrinho</button>
+        </div>
+        
+        <script src="script.js"></script>
+        
+    </div>
+</body>
+
+</html>
+const items = [{
+    id: 0,
+    nome: 'camiseta',
+    img: '/images/camiseta.jpg',
+    quantidade: 0
+}, {
+    id: 1,
+    nome: 'short',
+    img: '/images/short.png',
+    quantidade: 0
+}, {
+    id: 2,
+    nome: 'sapato',
+    img: '/images/tenis.png',
+    quantidade: 0
+}]
+
+inicializarLoja = () => {
+    var containerProdutos = document.getElementById('produtos')
+    items.map((val) => {
+        containerProdutos.innerHTML += `
+        <div class="produto-single">
+            <img src=" ${val.img} " />
+            <p> ${val.nome}</p>
+            <a key="${val.id}" href="#">
+             <button id="botaoAdicionar" type="button" onclick="">Adicionar ao Carrinho
+             </button><a/>
+        </div>
+        `
+    })
+}
+
+inicializarLoja()
+
+atualizarCarrinho = () => {
+    var containerCarrinho = document.getElementById('carrinho')
+    // Limpa container sempre que adiciona um novo objeto ao carrinho
+    containerCarrinho.innerHTML = ""
+    items.map((val) => {
+        // validação de itens
+        if (val.quantidade > 0) {
+            containerCarrinho.innerHTML += `
+            <p>${val.nome} | quantidade: ${val.quantidade}</p>
+            <hr>
+            `
+        }
+    })
+}
+
+limparCarrinho = () => {
+    var containerCarrinho = document.getElementById('carrinho')
+    containerCarrinho.innerHTML = ""
+    items.map((val) => {
+        if (val.quantidade > 0) {
+            // Otimizar esta function
+            containerCarrinho.innerHTML += `
+            <p> ${val.quantidade = ""}</p>
+             <hr>
+            `
+            limparCarrinho()
+        }
+    })
+}
+
+// recupera documentos pela tag de link
+var links = document.getElementsByTagName('a')
+
+// laço p/ o evento de click em comprar produto através do link setado
+for (var i = 0; i < links.length; i++) {
+    links[i].addEventListener("click", function () {
+        let key = this.getAttribute('key')
+        items[key].quantidade++
+        atualizarCarrinho()
+        this.preventDefault()
+    })
+}
+const items = [{
+    id: 0,
+    nome: 'camiseta',
+    img: '/images/camiseta.jpg',
+    quantidade: 0
+}, {
+    id: 1,
+    nome: 'short',
+    img: '/images/short.png',
+    quantidade: 0
+}, {
+    id: 2,
+    nome: 'sapato',
+    img: '/images/tenis.png',
+    quantidade: 0
+}]
+
+inicializarLoja = () => {
+    var containerProdutos = document.getElementById('produtos')
+    items.map((val) => {
+        containerProdutos.innerHTML += `
+        <div class="produto-single">
+            <img src=" ${val.img} " />
+            <p> ${val.nome}</p>
+            <a key="${val.id}" href="#">
+             <button id="botaoAdicionar" type="button" onclick="">Adicionar ao Carrinho
+             </button><a/>
+        </div>
+        `
+    })
+}
+
+inicializarLoja()
+
+atualizarCarrinho = () => {
+    var containerCarrinho = document.getElementById('carrinho')
+    // Limpa container sempre que adiciona um novo objeto ao carrinho
+    containerCarrinho.innerHTML = ""
+    items.map((val) => {
+        // validação de itens
+        if (val.quantidade > 0) {
+            containerCarrinho.innerHTML += `
+            <p>${val.nome} | quantidade: ${val.quantidade}</p>
+            <hr>
+            `
+        }
+    })
+}
+
+limparCarrinho = () => {
+    var containerCarrinho = document.getElementById('carrinho')
+    containerCarrinho.innerHTML = ""
+    items.map((val) => {
+        if (val.quantidade > 0) {
+            // Otimizar esta function
+            containerCarrinho.innerHTML += `
+            <p> ${val.quantidade = ""}</p>
+             <hr>
+            `
+            limparCarrinho()
+        }
+    })
+}
+
+// recupera documentos pela tag de link
+var links = document.getElementsByTagName('a')
+
+// laço p/ o evento de click em comprar produto através do link setado
+for (var i = 0; i < links.length; i++) {
+    links[i].addEventListener("click", function () {
+        let key = this.getAttribute('key')
+        items[key].quantidade++
+        atualizarCarrinho()
+        this.preventDefault()
+    })
+}
