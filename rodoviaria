@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="title-box">
+    <h2>Faça o login</h2>
+  </div>
+  <form class="formulario" method="post">
+    <span class="span-name">Login:</span>
+    <input class="inputs" type="text" name="login">
+    <br>
+    <br>
+    <span class="span-name">Senha:</span>
+    <input class="inputs" type="password" name="password" id="pass">
+    <input type="submit" id="btn" name="acao" value="Logar">
+  </form>
+</body>
+</html>
+
+const express = require('express');
+const session = require('express-session'); // sessão
+const bodyParser = require('body-parser');
+
+const port = 3000;
+var path = require('path');
+const app = express();
+
+var login = "admin";
+var password = "123456"
+
+app.use(session({secret:'home6415684198key'}));
+app.use(bodyParser.urlencoded({extended:true}));
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
+app.use('/public', express.static(path.join(__dirname, 'public')));
+app.set('views', path.join(__dirname, '/views'));
+
+app.post('/', (req, res)=>{
+
+  if(req.body.password == password && req.body.login == login){
+    // logado com sucesso
+    req.session.login = login;
+    
+    res.render('logado',{login: login});
+
+  }else{
+    res.render('index');
+  }
+});
+
+app.get('/', (req, res) =>{
+  if(req.session.login){
+    res.render('logado',{login: login});
+    console.log('O meu usuário logado é: '+ req.session.login);
+  }else{
+    res.render('index');
+  }
+});
+
+app.listen(port, () => {
+  console.log('servidor rodando'); 
+});
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logado com sucesso</title>
+</head>
+<body>
+  <h2>Você está logado <%= login %>! seja bem vindo</h2>
+</body>
+</html>
+
+
+
+
+-----------
+TELA HOME 
+
+
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>HOME</h2>
+<p><strong>BEM VINDO</strong></p>
+
+<p>
+<img src="inicio.png.png" alt="logo da Home " style="float:right;width:200px">
+   
+   
+   -----------------------------------------------
+   frete
+   
+   
+const todosProdutos = (req, res) => {
+    return res.status(200).json(bancoDeDados);
+}
+
+const produtoId = (req, res) => {
+    const { id } = req.params;
+
+    if(!Number(id)){
+        return res.status(400).json({
+            mensagem: 'O id não é um número valido'
+        })
+    }
+    const produto = bancoDeDados.find((produto) => {
+        return produto.id === Number(id);
+    })
+
+    if(!produto){
+        return res.status(400).json({
+            mensagem: 'Não existe produto neste ID'
+        })
+    }
+
+    return res.status(200).json(produto);
+}
+
+const valorFrete = async (req, res) => {
+    const { id, cep } = req.params
+
+    const produto = bancoDeDados.find((produto) => {
+        return produto.id === Number(id);
+    })
+
+    const cepInformado = await getStateFromZipcode(cep)
+    let valorDoFrete;
+    
+    if(cepInformado === "BA" || cepInformado === "SE" || cepInformado === "AL" || cepInformado === "PE" || cepInformado === "PB"){
+            valorDoFrete = produto.valor * 2.50
+    }
+
+    else if(cepInformado === "SP" || cepInformado === "RJ"){
+        valorDoFrete = produto.valor * 2.50
+    }
+
+    else{
+        valorDoFrete = produto.valor * 2.50
+    }
+
+    return res.status(200).json({
+        produto: produto,
+        cep: cepInformado,
+        frete: valorDoFrete
+    });
+
+
+}
+
+
+
+module.exports = {
+    todosProdutos,
+    produtoId,
+    valorFrete
+}
+--------------------------------------------------
+
+sobre nos
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>sobre nos</h2>
+<p> o banco xp é um empressa fundada no rio de janeiro no ano de 1800</p>
+
+
+<img src="sobrenos.png" alt="sobre nos " style="float:left;width:200px">
+   
